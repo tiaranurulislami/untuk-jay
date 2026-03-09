@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Untuk Jay 🩷</title>
+
+<style>
+
+body{
+text-align:center;
+font-family:Arial;
+background:linear-gradient(#ff9a9e,#fecfef,#ffe6f0);
+color:#5a2a2a;
+overflow-x:hidden;
+margin:0;
+padding:20px;
+}
+
+/* INTRO */
+
+#intro{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#ff9a9e;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:6vw;
+letter-spacing:3px;
+color:white;
+z-index:999;
+animation:fadeOut 4s forwards;
+}
+
+@keyframes fadeOut{
+0%{opacity:1;}
+80%{opacity:1;}
+100%{opacity:0;visibility:hidden;}
+}
+
+/* FOTO */
+
+#foto{
+width:90%;
+max-width:320px;
+border-radius:20px;
+margin-top:20px;
+opacity:1;
+transition:opacity 1.5s ease;
+}
+
+/* BUTTON */
+
+button{
+padding:12px 25px;
+font-size:16px;
+margin:15px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+position:relative;
+transition:0.3s;
+}
+
+.yes{
+background:#ff4d6d;
+color:white;
+}
+
+.no{
+background:gray;
+color:white;
+position:absolute;
+}
+
+/* SURAT */
+
+.surat{
+width:90%;
+max-width:700px;
+margin:60px auto;
+background:rgba(255,255,255,0.7);
+padding:20px;
+border-radius:20px;
+backdrop-filter:blur(10px);
+line-height:1.8;
+font-size:16px;
+text-align:left;
+}
+
+/* ENDING */
+
+.ending{
+margin:120px 0;
+font-size:28px;
+font-weight:bold;
+opacity:0;
+transform:translateY(40px);
+transition:1.5s;
+}
+
+.ending.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* CONFETTI */
+
+.confetti{
+position:fixed;
+font-size:20px;
+animation:fall 3s linear forwards;
+}
+
+@keyframes fall{
+to{
+transform:translateY(100vh) rotate(360deg);
+opacity:0;
+}
+}
+
+/* RESPONSIVE */
+
+@media (min-width:768px){
+
+h1{
+font-size:40px;
+}
+
+button{
+font-size:18px;
+padding:14px 30px;
+}
+
+.surat{
+font-size:18px;
+padding:30px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="intro">
+For Jay 💌
+</div>
+
+<h1>Untuk Jay 🩷</h1>
+
+<p>Aku tau aku banyak salah...</p>
+<p>Tapi aku masih sayang kamu.</p>
+<p>Boleh gak kita mulai lagi dari awal?</p>
+
+<img id="foto" src="foto_kita1.jpeg">
+
+<br><br>
+
+<button class="yes" onclick="balik()">
+Balik ke aku
+</button>
+
+<button id="noBtn" class="no">
+Belum dulu
+</button>
+
+<br><br>
+
+<audio controls autoplay loop>
+<source src="aboutyou.mp3" type="audio/mpeg">
+</audio>
+
+<div class="surat">
+<p id="text"></p>
+</div>
+
+<div class="ending" id="ending">
+Will you come back to me? 💍
+</div>
+
+<script>
+
+/* FOTO CINEMATIC */
+
+const fotos=[
+"foto_kita1.jpeg",
+"foto_kita2.jpeg",
+"foto_kita3.jpeg"
+];
+
+let index=0;
+
+setInterval(()=>{
+
+const foto=document.getElementById("foto");
+
+foto.style.opacity=0;
+
+setTimeout(()=>{
+
+index++;
+
+if(index>=fotos.length){
+index=0;
+}
+
+foto.src=fotos[index];
+foto.style.opacity=1;
+
+},700);
+
+},3500);
+
+
+/* SURAT DIKETIK */
+
+const pesan=`Jay...
+
+Aku tidak tahu harus mulai dari mana.
+
+Sejak semuanya berubah aku sering memikirkan kita.
+
+Tentang semua kenangan kecil yang dulu terasa biasa saja,
+tapi sekarang justru jadi hal yang paling aku rindukan.
+
+Aku tidak menulis ini untuk memaksamu kembali.
+
+Aku hanya ingin kamu tahu satu hal...
+
+Aku masih peduli sama kamu.
+
+Dan jika suatu hari kamu masih melihat kemungkinan
+untuk kita mencoba lagi...
+
+Aku akan ada di sini.
+
+Menunggu kamu.`;
+
+let i=0;
+
+function ketik(){
+
+if(i<pesan.length){
+
+document.getElementById("text").innerHTML+=pesan.charAt(i);
+
+i++;
+
+setTimeout(ketik,40);
+
+}
+
+}
+
+ketik();
+
+
+/* TOMBOL NO LARI (HP + LAPTOP) */
+
+const noBtn=document.getElementById("noBtn");
+
+const kataNo=[
+"Yakin?",
+"Jangan gitu 🥺",
+"Pikir lagi deh",
+"Masa sih",
+"Aku masih sayang loh",
+"Coba klik yang satunya 😭",
+"Balikan aja yuk",
+"Please?"
+];
+
+let size=1;
+
+function gerakNo(){
+
+size-=0.1;
+
+if(size<0.3){
+size=0.3;
+}
+
+noBtn.style.transform="scale("+size+")";
+
+const x=Math.random()*(window.innerWidth-100);
+const y=Math.random()*(window.innerHeight-100);
+
+noBtn.style.left=x+"px";
+noBtn.style.top=y+"px";
+
+noBtn.innerText=kataNo[Math.floor(Math.random()*kataNo.length)];
+
+}
+
+/* Laptop */
+noBtn.addEventListener("mouseover",gerakNo);
+
+/* HP */
+noBtn.addEventListener("touchstart",gerakNo);
+noBtn.addEventListener("click",gerakNo);
+
+
+/* CONFETTI */
+
+function confetti(){
+
+for(let i=0;i<40;i++){
+
+const heart=document.createElement("div");
+
+heart.classList.add("confetti");
+
+heart.innerHTML="🩷";
+
+heart.style.left=Math.random()*100+"vw";
+
+heart.style.top="-10px";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},3000);
+
+}
+
+}
+
+
+/* KLIK BALIK */
+
+function balik(){
+
+confetti();
+
+alert("Jawaban kamu terkirim 🩷");
+
+}
+
+
+/* ENDING SCROLL */
+
+const ending=document.getElementById("ending");
+
+window.addEventListener("scroll",()=>{
+
+const posisi=ending.getBoundingClientRect().top;
+const layar=window.innerHeight;
+
+if(posisi<layar-100){
+ending.classList.add("show");
+}
+
+});
+
+</script>
+
+</body>
+</html>
